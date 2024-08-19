@@ -1,0 +1,34 @@
+{%extends "layout.html" %}
+
+{% block body %}
+    <img class="image" height="18%" style="position: absolute;left:65%;top:5%;">
+    <div class="div">
+        <div class="margin">
+            <p id="questions"></p>
+        </div>
+        <p id="answerBar"></p>
+        <button id="enterAnswer" class="template enter" onclick="toggleAnswer()">➤</button>        
+        <div class="div2 drop" id="answerDiv">
+            <p id="correctAnswer"></p>
+            <p id="userAnswer"></p>
+            <button class="template wide1 correct" onclick="checkAnswer('correct')">✅</button>
+            <button class="template wide1 incorrect" onclick="checkAnswer('incorrect')">❌</button>
+            <form id="result" action="/result" method="POST">
+                <button class="template wide2" onclick="saveResults()">bekijk resultaten</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="buttonBar">
+        <button class="point" id="previous" onclick="previousExcersise()"><</button>
+        <button class="template placeholder" id="buttonBar"></button>
+        <button class="point" id="next" onclick="nextExcersise()">></button>
+    </div>
+    
+    
+    <script type="text/javascript">var quiz = JSON.parse('{{ message_json | tojson | safe }}');
+        document.getElementById("page").setAttribute("color-mode", quiz.theme)
+    </script>
+    <script type="text/javascript" src="static/quiz.js"></script>
+    
+{% endblock %}

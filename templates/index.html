@@ -1,0 +1,31 @@
+{%extends "layout.html" %}
+
+{% block body %}
+    <br>
+    <form class="center" action="/quiz" method="POST">
+        <h class="big">Maak voor mij verhaaltjessommen met...</h><br>
+        <select id="theme" data-placeholder="thema" class="inputBig3" name="theme" required>
+            <option id="fortnite" value="fortnite">fortnite 🔫</option>
+            <option id="minecraft" value="minecraft">minecraft 🗡️</option>
+            <option id="spongebob" value="spongebob">spongebob 🧽</option>
+            <option id="voetbal"value="voetbal met echte voetbalclubs">voetbal ⚽</option>
+        </select>
+        <select data-placeholder="groep" class="inputBig3" name="grade" required>
+            <option>groep 6</option>
+            <option>groep 7</option>
+            <option>groep 8</option>
+        </select>
+        <button class="inputBig2" onclick="loadingScreen()" type="submit">↵</button>
+    </form>
+    <p class="loading" id="loadingAnimation"></p>
+
+    <script>
+        function loadingScreen() {
+            document.getElementById("loadingAnimation").classList.add("loader");
+            var theme = document.getElementById("theme").options[document.getElementById("theme").selectedIndex].value
+            document.getElementById("page").setAttribute("color-mode", theme) // change page theme on submit
+        }
+        
+    </script>
+
+{% endblock %}

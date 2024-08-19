@@ -1,0 +1,30 @@
+{%extends "layout.html" %}
+
+{% block body %}
+    <head>
+        <link rel="stylesheet" href="static/animations.css">
+    </head>
+    <div class="div3">
+        <p class="stupidText">resultaten</p>
+        <div id="pie" class="pie animate"> 0%</div>
+        
+        <div class="buttonBar2">
+            <button class="point" id="previous" onclick="previousExcersise()">🡰</button>
+            <button class="template placeholder" id="buttonBar"></button>
+            <button class="point" id="next" onclick="nextExcersise()">🡲</button>
+        </div>
+        <div class="div4" id="answerDiv">
+            
+            <image id="feedback" src="static/greenbean.jpg" class="imageAnimation" width="40%" height="10%"></image>
+            <p id="questions"></p>
+            <p id="correctAnswer"></p>
+            <p id="userAnswer"></p>
+        </div>
+
+        <button class="template wide3" onclick="location.href='/'" type="button">🏠</button>
+    </div>
+
+    
+    
+    <script src="static/result.js" id="background"></script>
+{% endblock %}
