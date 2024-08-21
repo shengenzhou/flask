@@ -93,6 +93,12 @@ function checkAnswer(answer) {
 }
 
 function saveResults() {
+    for (var j = 0; j < Object.keys(quiz.questions).length; j++) {
+        if (document.getElementById("userAnswer" + j).value === "") {
+            console.log("none")
+            quiz.questions[j]["userAnswer"] = "...";
+        }
+    }
     localStorage.quizResults=JSON.stringify(quiz);
 }
 

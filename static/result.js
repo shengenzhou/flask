@@ -70,13 +70,7 @@ function displayExcersise(i) {
     a += "<b>antwoord: </b>";
     a += quiz.questions[i].correct_answer + "<br>";
     a += "<b>uitleg: </b>" + quiz.questions[i].explanation + "<br><br>";
-    if (quiz.questions[i].userAnswer === "" || quiz.questions[i].userAnswer === `<input id="userAnswer` + i + `" class="input" hidden=""></input>`)
-    {
-        a += "<b>jouw antwoord: </b>...";
-    }
-    else {
-        a += "<b>jouw antwoord: </b>" + quiz.questions[i].userAnswer;
-    }
+    a += "<b>jouw antwoord: </b>" + quiz.questions[i].userAnswer;
     
     document.getElementById("questions").innerHTML = q;
     document.getElementById("correctAnswer").innerHTML = a;
