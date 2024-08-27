@@ -1,0 +1,36 @@
+{%extends "layout.html" %}
+
+{% block body %}
+    <style>
+        .container {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: flex-end;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border: 2px solid red;
+            justify-content: center;
+            align-items: center;
+            max-width: 500px;
+
+        }
+        .item {
+            background: tomato;
+            padding: 5px;
+            height: 50px;
+            width: 200px;
+            margin: 10px;
+            line-height: 150px;
+            color: white;
+            font-weight: bold;
+            font-size: 3em;
+            text-align: center;
+        }
+    </style>
+    <form class="container">
+        <input class="item" placeholder="gebruikersnaam" required></input>
+        <input class="item" placeholder="wachtwoord" required></input>
+        <button class="item" type="submit"></button>
+    </form>
+{% endblock %}

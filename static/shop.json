@@ -1,0 +1,15 @@
+{
+    "items": [
+        {
+            "id": "fortnite",
+            "price": 100,
+            "description": "oefen oneindig verhaalsommen met fortnite verhalen"
+        },
+        {
+            "id": "voetbal",
+            "price": 100,
+            "description": "oefen oneindig verhaalsommen met voetbal"
+        }
+
+    ]
+}

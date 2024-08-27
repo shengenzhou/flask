@@ -16,8 +16,9 @@ def index():
 def output():
     theme = request.form["theme"]
     grade = request.form["grade"]
-    question = f'maak 10 verhaaltjessommen voor {grade} met {theme} termen. Doe vragen met breuken, procenten, verhoudingen, optellen, aftrekken, vermenigvuldigen en delen. Met antwoorden en uitleg in een JSON structuur als volgt '
-    format = '{\"questions\":[{\"id\":1,\"context\":\"Context for question 1.\",\"question\":\"Question for question 1\",\"correct_answer\":\"Answer 1\",\"explanation\":\"Explanation for answer 1.\"}'
+    category = request.form["category"]
+    question = f'maak 10 verhaaltjessommen voor {grade} met {theme} termen. Doe vragen met {category}. Met antwoorden en uitleg in een JSON structuur als volgt '
+    format = '{\"questions\":[{\"id\":1,\"context\":\"Context for question 1.\",\"question\":\"Question\",\"correct_answer\":\"Answer 1\",\"explanation\":\"Explanation for answer 1.\"}'
 
     client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
@@ -48,11 +49,6 @@ def show_output():
 def result():
     return render_template("result.html")
 
-# @app.route("/") #testing case 
-# def output():
-#     with open('sample.json') as f:
-#         message_json = json.load(f)
-#     return render_template("request.html", message_json=message_json)
 
 if __name__ == '__main__':
     app.run

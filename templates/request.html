@@ -6,13 +6,18 @@
         <div class="margin">
             <p id="questions"></p>
         </div>
-        <p id="answerBar"></p>
-        <button id="enterAnswer" class="template enter" onclick="toggleAnswer()">➤</button>        
-        <div class="div2 drop" id="answerDiv">
+        <div class="inputBar">
+            <p id="answerBar"></p>
+            <button id="enterAnswer" class="template enter" onclick="toggleAnswer()">➤</button>        
+        </div>
+            <div class="div2 drop" id="answerDiv">
             <p id="correctAnswer"></p>
             <p id="userAnswer"></p>
             <button class="template wide1 correct" onclick="checkAnswer('correct')">✅</button>
             <button class="template wide1 incorrect" onclick="checkAnswer('incorrect')">❌</button>
+            <div id="next">
+                <button class="template wide2" onclick="nextExcersise()">volgende vraag</button>
+            </div>
             <form id="result" action="/result" method="POST">
                 <button class="template wide2" onclick="saveResults()">bekijk resultaten</button>
             </form>

@@ -20,40 +20,42 @@ function displayExcersise(i) {
     index = i;
     document.getElementById("answerDiv").style.display = "none";
     document.getElementById("result").style.display = "none";
+    document.getElementById("next").style.display = "none";
     document.getElementById("userAnswer" + i).hidden = false; // show current input
     document.getElementById("userAnswer" + i).focus();
     let q = "";
     let a = "";
     q += "<b>" + quiz.questions[i].id + ". </b>";
     q += quiz.questions[i].context + "<br>";
-    q += quiz.questions[i].question + "<br>";
+    q += "<b>" + quiz.questions[i].question + "</b>" + "<br>";
     q += document.getElementById("userAnswer" + i).innerHTML;
     a += "<b>antwoord: </b>";
     a += quiz.questions[i].correct_answer + "<br>";
     a += "<b>uitleg: </b>" + quiz.questions[i].explanation + "<br>";
-    document.getElementById("userAnswer" + index).addEventListener("keypress", function(event) {
+    document.getElementById("userAnswer" + i).addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
             document.getElementById("enterAnswer").click();
         }
         });
+    if (i == Object.keys(quiz.questions).length - 1 && document.getElementById("userAnswer" + i).value !== "") {
+        document.getElementById("next").style.display = "none";
+        document.getElementById("result").style.display = "block";
+    }
     document.getElementById("questions").innerHTML = q;
     document.getElementById("correctAnswer").innerHTML = a;
 }
 
 function nextExcersise() {
     if (index < Object.keys(quiz.questions).length - 1) {
-        index++;
-        displayExcersise(index);
-
+        displayExcersise(index + 1);
     }
         
 }
 
 function previousExcersise() {
     if (index > 0) {
-        index--;
-        displayExcersise(index);
+        displayExcersise(index - 1);
     }
         
 }
@@ -79,24 +81,34 @@ function checkAnswer(answer) {
         quiz.questions[index]["userResult"] = true;
         var input = document.getElementById("userAnswer" + index).value;
         quiz.questions[index].userAnswer = input;
+        document.getElementById("next").style.display = "block";
+        var element = document.getElementById("answerDiv");
+        element.scrollTop = element.scrollHeight;
     }
     else if (answer === "incorrect") {
         document.getElementById('button' + index).style.color = "red"
         document.getElementById('button' + index).style.borderColor = "red";
         quiz.questions[index]["userResult"] = false;
         var input = document.getElementById("userAnswer" + index).value;
-        quiz.questions[index].userAnswer = input;
+        quiz.questions[index].userAnswer = input;document.getElementById("next").style.display = "block";
+        var element = document.getElementById("answerDiv");
+        element.scrollTop = element.scrollHeight;
     }
     if (index == Object.keys(quiz.questions).length - 1) {
+        document.getElementById("next").style.display = "none";
         document.getElementById("result").style.display = "block";
+        var element = document.getElementById("answerDiv");
+        element.scrollTop = element.scrollHeight;
     }
 }
 
 function saveResults() {
     for (var j = 0; j < Object.keys(quiz.questions).length; j++) {
         if (document.getElementById("userAnswer" + j).value === "") {
-            console.log("none")
             quiz.questions[j]["userAnswer"] = "...";
+        }
+        if (quiz.questions[j]["userResult"] == null) {
+            quiz.questions[j]["userAnswer"] = document.getElementById("userAnswer" + j).value;
         }
     }
     localStorage.quizResults=JSON.stringify(quiz);
