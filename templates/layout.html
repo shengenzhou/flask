@@ -10,7 +10,7 @@
         <title>💯 verhaaltjessommen 💯</title>
         <link rel="shortcut icon" href="#">
         <a href="/">
-            <img class="logo" src="../static/logo2.png" height="10%"/>
+            <img class="logo" src="../static/logo2.png"/>
         </a>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2025734809330703"
      crossorigin="anonymous"></script>
@@ -347,7 +347,7 @@
             justify-content: center;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 40px;
+            margin-top: 10px;
             height: 45px;
             width: 50%;
         }
@@ -475,16 +475,7 @@
             overflow-x: hidden;
             overflow-y: auto;
         }
-        .loading {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 25px; 
-        }
-        
+
         .loadingScreen {
             background-color: var(--background-color2);
             width: 100%;
@@ -499,17 +490,27 @@
         
         img.image {
             content:var(--image);
+            position: absolute;
+            left:65%;
+            top:5%;
         }
+
         /* HTML: <div class="loader"></div> */
         .loader {
-        width: 60px;
+        width: 90px;
         aspect-ratio: 2;
+        --_g: no-repeat radial-gradient(circle closest-side, var(--div-color) 90%,#0000);
         background: 
             var(--_g) 0%   50%,
             var(--_g) 50%  50%,
             var(--_g) 100% 50%;
         background-size: calc(100%/3) 50%;
         animation: l3 1s infinite linear;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
         }
         @keyframes l3 {
             20%{background-position:0%   0%, 50%  50%,100%  50%}
@@ -580,11 +581,12 @@
                 border: 2px solid rgb(98, 98, 165);
             }
             .div {
-                min-height: 30%;
+                min-height: 35%;
+                top: 35%;
             }
             .div2 {
                 border-top: none;
-                height: 130%;
+                height: 100%;
                 width: 98%;
             }
             .div3 {
@@ -597,7 +599,7 @@
                 overflow-y: scroll;
             }
             .buttonBar {
-                top: 90%;
+                top: 93%;
                 width: 95%;
                 min-height: 6%; 
                 border: 2px solid rgb(98, 98, 165);
@@ -629,8 +631,8 @@
                 border: 2px solid rgb(98, 98, 165);
             }
             .inputBar {
-                margin-bottom: 20px;
-                width: 80%;
+                width: 90%;
+                margin-bottom: 10px;
             }
             button.enter {
                 font-size: var(--fs-base);
@@ -661,8 +663,11 @@
                 top: 1%;
                 left: 20%;
             }
+            img.image {
+                top: 8%;
+            }
             .margin {
-                height: 19vh;
+                height: 25vh;
             }
             button.placeholder {
                 border: none;
@@ -684,7 +689,12 @@
                 top: 10%;
             }
             .logo {
-                margin-bottom: 40px;
+                width: 75%;
+                position: absolute;
+                top: 5%;
+                left: 37%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
             }
             .item:hover {
             transform: scale(1.05)
