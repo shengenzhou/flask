@@ -494,7 +494,17 @@
             left:65%;
             top:5%;
         }
-
+        .loaderText {
+            color: var(--div-color);
+            font-family: helvetica;
+            font-size: 40px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
         /* HTML: <div class="loader"></div> */
         .loader {
         width: 90px;
@@ -695,6 +705,9 @@
                 left: 37%;
                 -webkit-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
+            }
+            .loaderText {
+                top: 60%;
             }
             .item:hover {
             transform: scale(1.05)

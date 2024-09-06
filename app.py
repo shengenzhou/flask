@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, session, redirect, u
 from openai import OpenAI
 import json
 import os
+import threading
 
 app = Flask(__name__)
 SECRET_KEY = str(os.urandom(24))
@@ -11,12 +12,15 @@ app.secret_key = SECRET_KEY
 def index():
     return render_template("index.html")
 
-
-@app.route("/quiz", methods=["POST"], endpoint="process_output") 
-def output():
-    theme = request.form["theme"]
-    grade = request.form["grade"]
-    category = request.form["category"]
+@app.route('/submit', methods=['POST'])
+def submit_input():
+    theme = request.form['theme']
+    grade = request.form['grade']
+    category = request.form['category']
+    
+    session['ready'] = False
+    session['result'] = None
+    
     question = f'maak 10 verhaaltjessommen voor {grade} met {theme} termen. Doe vragen met {category}. Met antwoorden en uitleg in een JSON structuur als volgt '
     format = '{\"questions\":[{\"id\":1,\"context\":\"Context for question 1.\",\"question\":\"Question\",\"correct_answer\":\"Answer 1\",\"explanation\":\"Explanation for answer 1.\"}'
 
@@ -34,16 +38,24 @@ def output():
     message_content = response.choices[0].message.content
     message_json = json.loads(message_content)
     message_json["theme"] = theme  # add theme to dict so that we can use it in the next few pages
-    session['message_json'] = message_json
 
-    # Redirect to the GET route
-    return redirect(url_for('show_output'))
+    session['result'] = message_json
+    session['ready'] = True
+    return jsonify({'status': 'processing'})
 
-@app.route("/quiz", methods=["GET"])
-def show_output():
-    # Retrieve the result from the session
-    message_json = session.get('message_json', {"empty": "json"})
-    return render_template("request.html", message_json=message_json)
+@app.route('/check_status')
+def check_status():
+    if 'ready' in session:
+        return jsonify({'ready': session['ready']})
+    return jsonify({'ready': False})
+
+@app.route('/quiz', methods=['GET'])
+def quiz():
+    if session.get('ready'):
+        return render_template('quiz.html', message_json=session['result'])
+    else:
+        return redirect(url_for('/'))
+    
 
 @app.route("/result", methods=["GET", "POST"])
 def result():

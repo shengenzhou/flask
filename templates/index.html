@@ -7,35 +7,36 @@
             <img class="logo" src="../static/logo2.png"/>
         </a>
         <div class="loader"></div>
+        <div id="firstMessage" class="loaderText">wij zijn de opdrachten aan het maken...</div>
     </div>
     
     <div class="selectBar">
-        <form action="/quiz" method="POST">
+        <form id="inputForm" method="POST" action="/submit">
             <h class="big">Maak voor mij verhaalsommen met...</h><br>
             <select id="theme" data-placeholder="thema" class="inputBig3" name="theme" required>
                 <option id="fortnite" value="fortnite">fortnite 🔫</option>
                 <option id="minecraft" value="minecraft">minecraft 🗡️</option>
                 <option id="spongebob" value="spongebob">spongebob 🧽</option>
-                <option id="voetbal"value="voetbal met echte voetbalclubs">voetbal ⚽</option>
+                <option id="voetbal" value="voetbal met echte voetbalclubs">voetbal ⚽</option>
             </select>
-            <select data-placeholder="groep" class="inputBig4" name="grade" required>
+            <select id="grade" data-placeholder="groep" class="inputBig4" name="grade" required>
                 <option value="groep 6">groep 6</option>
                 <option value="groep 7">groep 7</option>
                 <option value="groep 8">groep 8</option>
             </select>
-            <select data-placeholder="categorie" class="inputBig4" name="category" required>
+            <select id="category" data-placeholder="categorie" class="inputBig4" name="category" required>
                 <option value="optellen en aftrekken">plus en min</option>
                 <option value="breuken, vermenigvuldigen en delen">keer en delen</option>
                 <option value="procenten, verhoudingen">procenten en verhoudingen</option>
                 <option value="breuken, procenten, verhoudingen, optellen, aftrekken, vermenigvuldigen en delen" >mix</option>
             </select>
-            <button class="inputBig2" onclick="loadingScreen()" type="submit">↵</button>
+            <button class="inputBig2" type="submit">↵</button>
         </form>
     </div>
     <ul class="container">
         <figure class="item">
             <img class="icon" src="static/check.png"></img>
-            <span class="caption">Gepersonaliseert leren</span>
+            <span class="caption">Gepersonaliseerd leren</span>
         </figure>
         <li class="item">
             <img class="icon" src="static/rocket.png"></img>
@@ -49,13 +50,48 @@
     
     <script>
         document.getElementById("loadingScreen").style.display = "none";
-        function loadingScreen() {
+
+        document.getElementById('inputForm').addEventListener('submit', function (event) {
+            event.preventDefault(); 
+            
             var theme = document.getElementById("theme").options[document.getElementById("theme").selectedIndex].value
             document.getElementById("page").setAttribute("color-mode", theme); // change page theme on submit
             document.getElementById("loadingScreen").style.display = "block";
             document.getElementsByTagName("body")[0].style = "background-color: #2E3035"; // temporary background old color dumb fix
+
+            const formData = new FormData(document.getElementById('inputForm'));
+
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                pollForResult();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        // Poll the server to check if the result is ready
+        function pollForResult() {
+            document.getElementById("firstMessage").innerHTML = "nog even geduld..."
+            const interval = setInterval(function () {
+                fetch('/check_status')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ready) {
+                            clearInterval(interval); 
+                            window.location.href = '/quiz';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }, 2000); // Poll every 2 seconds
+            
         }
-        
     </script>
 
 {% endblock %}

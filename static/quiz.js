@@ -1,7 +1,8 @@
 var index = 0;
+console.log(quiz)
 window.onload = function() {
         displayExcersise(0);
-        
+        console.log("loading complete")
     }
     
 for (var j = 0; j < Object.keys(quiz.questions).length; j++) {
